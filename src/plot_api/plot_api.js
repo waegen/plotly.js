@@ -553,7 +553,48 @@ function plotPolar(gd, data, layout) {
     gd._context.setBackground(gd, gd._fullLayout.paper_bgcolor);
     Plots.addLinks(gd);
 
-    return Promise.resolve();
+    gd._fullLayout._paper.selectAll('.chart-group .geometry')
+        .each(function(d, i) {
+            var traceIdx = i;
+            d3.select(this).selectAll('path')
+                .each(function(d, i) {
+                    var valueIndex = i;
+
+                    d3.select(this).on('mouseout', function(pt) {
+                        var args = {
+                            event: d3.event,
+                            points: [pt],
+                            traceIdx: traceIdx,
+                            valueIdx: valueIndex,
+                        };
+
+                        gd.emit('plotly_unhover', args);
+                    });
+
+                    d3.select(this).on('mouseover', function(pt) {
+                        var args = {
+                            event: d3.event,
+                            points: [pt],
+                            traceIdx: traceIdx,
+                            valueIdx: valueIndex,
+                        };
+
+                        gd.emit('plotly_hover', args);
+                    });
+
+                    d3.select(this).on('click', function(pt) {
+                        var args = {
+                            event: d3.event,
+                            points: [pt],
+                            traceIdx: traceIdx,
+                            valueIdx: valueIndex,
+                        };
+                        gd.emit('plotly_click', args);
+                    });
+                });
+        });
+
+    return Promise.resolve(gd);
 }
 
 // convenience function to force a full redraw, mostly for use by plotly.js
