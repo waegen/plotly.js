@@ -19,7 +19,7 @@ module.exports = transformTools.makeRequireTransform('requireTransform',
 
         if(pathIn === 'd3' && opts.file !== pathToStrictD3Module) {
             pathOut = 'require(\'' + pathToStrictD3Module + '\')';
-			pathOut = pathOut.replace(/\\/g, '/')
+            pathOut = pathOut.replace(/\\/g, '/');
         }
 
         if(pathOut) return cb(null, pathOut);
