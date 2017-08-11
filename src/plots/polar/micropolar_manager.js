@@ -17,6 +17,7 @@ var Color = require('../../components/color');
 var micropolar = require('./micropolar');
 var UndoManager = require('./undo_manager');
 var extendDeepAll = Lib.extendDeepAll;
+var initInteractions = require('./polar_interact');
 
 var manager = module.exports = {};
 
@@ -38,6 +39,7 @@ manager.framework = function(_gd) {
         _gd.data = config.data;
         _gd.layout = config.layout;
         manager.fillLayout(_gd);
+        initInteractions(_gd);
         return config;
     }
     exports.isPolar = true;

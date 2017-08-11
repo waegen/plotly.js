@@ -553,7 +553,7 @@ function plotPolar(gd, data, layout) {
     gd._context.setBackground(gd, gd._fullLayout.paper_bgcolor);
     Plots.addLinks(gd);
 
-    return Promise.resolve();
+    return Promise.resolve(gd);
 }
 
 // convenience function to force a full redraw, mostly for use by plotly.js
